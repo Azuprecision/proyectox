@@ -1,0 +1,60 @@
+# Reporte de Proceso: 
+
+## Prompts Más Efectivos Utilizados
+
+1.  **"Ejecutar las pruebas para verificar el estado actual."**
+    *   **Por qué fue efectivo:** Es una instrucción directa, clara y accionable que define un objetivo inmediato y permite a la IA tomar la iniciativa para encontrar y ejecutar el comando correcto.
+
+2.  **"Investiga los fallos de las pruebas y repáralo."**
+    *   **Por qué fue efectivo:** Otorga autonomía a la IA para realizar un ciclo completo de depuración: leer el error, analizar el código relevante, formular una hipótesis, proponer una solución y aplicarla. Es un prompt de alto nivel que acelera enormemente la resolución de problemas.
+
+3.  **"Quiero que agregues casos de prueba que fallen a propósito a la matriz y también automatízalos."**
+    *   **Por qué fue efectivo:** Define un objetivo complejo (añadir pruebas negativas) y delega toda la implementación: la actualización de la documentación (matriz) y la creación del código de prueba.
+
+4.  **"Modifica el archivo gitignore para que omita cualquier cambio que este dentro de la carpeta del proyecto html-report."**
+    *   **Por qué fue efectivo:** Es una tarea de configuración muy específica. El prompt indica claramente el archivo a modificar, el objetivo y la carpeta a ignorar, eliminando cualquier ambigüedad.
+
+---
+
+## Herramientas de Cell CLI Aprovechadas
+
+*   **`list_directory`**: Usada para inspeccionar el contenido de las carpetas del proyecto, especialmente después de mover archivos o para confirmar la creación de nuevos artefactos.
+*   **`read_file` / `read_many_files`**: Herramientas fundamentales para leer el contenido de archivos de código, pruebas, CSV y `package.json` para entender el contexto, diagnosticar problemas y planificar cambios.
+*   **`write_file`**: Utilizada para crear nuevos archivos desde cero (como los scripts de prueba y reportes) y para sobrescribir archivos existentes con contenido actualizado (como la matriz de pruebas y el README).
+*   **`replace`**: Empleada para realizar modificaciones quirúrgicas en los archivos, como corregir bugs en el código, ajustar la configuración de `package.json` o actualizar selectores en los scripts de prueba.
+*   **`run_shell_command`**: La herramienta principal para interactuar con el entorno del proyecto, usada para ejecutar `npm test`, instalar dependencias y mover archivos.
+
+---
+
+## Problemas Encontrados y Soluciones
+
+1.  **Problema**: Al interactuar con la IA realizaba modificación y a veces ya dejaba de funcionar mi proyecto y no es tan facil deshacer las modificaciones
+    *   **Solución**: Se subio el proyecto a git para tener un respaldo
+
+2.  **Problema**: Cuando das una instrucción la IA lo realiza pero debes ser especifico 
+    *   **Solución**: Se utilizó un lenguaje más especifico y sin ironias
+
+3.  **Problema**: La primera vez que realizo la matriz de prueba fue muy general. 
+    *   **Solución**: Se tuvo que especificar que casos se quería y que flujos probar.
+4.  **Problema**: Imposibilidad de leer archivos `.doc` directamente.
+    *   **Solución**: Se cambiaron los archivos a formato de texto plano (`.txt`), lo que permitió su procesamiento.
+
+---
+
+## Comparación de Tiempo Estimado (con/sin IA)
+
+### Escenario 1: Test Automatizado (Sin IA)
+
+*   **Investigación e Implementación de Pruebas (Selenium + Jest)**: 8-10 horas (incluye configuración de drivers, reporters, snapshots).
+*   **Depuración de Pruebas y Lógica de la App**: 4-5 horas (resolver problemas de sincronización, errores de selectores, etc.).
+*   **Documentación (Matriz, README)**: 2-3 horas.
+*   **Total Estimado**: **18 - 24 horas de trabajo.**
+
+### Escenario 2: Test por Cell CLI (Con IA)
+
+*   **Implementación de Pruebas**: La IA generó los scripts de prueba, la configuración de Jest y los reportes en cuestión de minutos por cada solicitud.
+*   **Depuración**: La IA fue capaz de leer los logs de error, analizar el código fuente y proponer soluciones en ciclos de 5-10 minutos por problema.
+*   **Documentación**: La IA generó y actualizó la documentación (matriz, README, reportes) basándose en el contexto del proyecto, completando cada tarea en menos de 5 minutos.
+*   **Total Real**: El tiempo total de interacción fue probablemente de **1 a 2 horas de trabajo enfocado**, donde el usuario actuó como director del proyecto y la IA como un desarrollador/QA ultra-rápido.
+
+**Conclusión:** El uso de Cell CLI redujo el tiempo de prueba y documentación en un **90-95% estimado**. La IA no solo aceleró las tareas de codificación, sino que también actuó como un depurador experto, identificando la causa raíz de problemas complejos de manera casi instantánea, pero se tuvo que supervisar cada paso.
