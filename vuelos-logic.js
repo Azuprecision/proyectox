@@ -155,11 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="form-group">
                             <label for="name-${i}" class="form-label">Nombre Completo</label>
-                            <input type="text" id="name-${i}" class="form-input passenger-name" placeholder="Nombre y Apellido" required>
+                            <input type="text" id="name-${i}" class="form-input passenger-name" placeholder="Nombre y Apellido">
                         </div>
                         <div class="form-group">
                             <label for="email-${i}" class="form-label">Email</label>
-                            <input type="email" id="email-${i}" class="form-input passenger-email" placeholder="correo@ejemplo.com" required>
+                            <input type="email" id="email-${i}" class="form--input passenger-email" placeholder="correo@ejemplo.com">
                         </div>
                     </div>
                 </div>

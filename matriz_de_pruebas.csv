@@ -26,3 +26,9 @@ Viewports: 375x812, 768x1024, 1920x1080","El diseño debe ser fluido y todos los
 "AERO-006","UI (Visual)","Verificar que no haya regresiones visuales inesperadas en la interfaz de usuario.","1. Ejecutar la prueba visual para generar snapshots de referencia.
 2. Volver a ejecutar la prueba para comparar la UI actual con la referencia.","Navegador: Chrome (headless)
 Viewports: Móvil y Escritorio","La segunda ejecución de la prueba debe pasar, indicando que no hay diferencias visuales con respecto a las imágenes de referencia guardadas.","Completo"
+"AERO-007","Funcional (Negativa)","Verificar que el sistema impida continuar al pago si el nombre del pasajero está vacío.","1. Avanzar hasta la sección de 'Información de Pasajeros'.
+2. Dejar el campo 'Nombre Completo' vacío.
+3. Hacer clic en 'Continuar al Pago'.","Nombre del Pasajero: (vacío)","Debe aparecer una alerta indicando que se debe completar la información. El usuario no debe avanzar a la sección de pago.","Pendiente"
+"AERO-008","Funcional (Negativa)","Verificar que el sistema impida el pago si el CVC de la tarjeta es inválido (no numérico).","1. Avanzar hasta la sección de 'Método de Pago'.
+2. Ingresar letras en el campo 'CVC'.
+3. Hacer clic en 'Pagar Ahora'.","CVC: 'ABC'","El formulario no debe enviarse debido a la validación de 'pattern' del campo. El navegador debe mostrar un error de formato.","Pendiente"
