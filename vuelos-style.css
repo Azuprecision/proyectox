@@ -1,0 +1,223 @@
+/* --- VARIABLES GLOBALES DE COLORES --- */
+:root {
+    --dark-bg: #0d0d1a;
+    --card-bg: #1a1a2e;
+    --neon-cyan: #00ffff;
+    --neon-magenta: #ff00ff;
+    --border-color: rgba(0, 255, 255, 0.3);
+}
+
+body {
+    background-color: var(--dark-bg);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* --- EFECTOS DE NEÓN --- */
+.neon-text-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px #00aaff;
+}
+
+.neon-text-magenta {
+    color: var(--neon-magenta);
+    text-shadow: 0 0 5px var(--neon-magenta), 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px #ff00aa;
+}
+
+/* --- ESTILOS DE COMPONENTES --- */
+.section-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* --- SELECTOR TIPO DE VIAJE --- */
+.trip-type-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.trip-type-selector input[type="radio"] {
+    display: none; /* Oculta el radio button por defecto */
+}
+
+.trip-type-selector label {
+    padding: 0.5rem 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--neon-magenta);
+    font-weight: 600;
+}
+
+.trip-type-selector input[type="radio"]:checked + label {
+    background-color: var(--neon-magenta);
+    color: var(--dark-bg);
+    border-color: var(--neon-magenta);
+    box-shadow: 0 0 15px var(--neon-magenta);
+}
+
+/* --- FORMULARIOS --- */
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--neon-magenta);
+}
+
+.form-input {
+    width: 100%;
+    background-color: #0d0d1a;
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* --- BOTONES NEÓN --- */
+.neon-button-cyan, .neon-button-magenta {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.neon-button-cyan {
+    background-color: transparent;
+    border: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+}
+
+.neon-button-cyan:hover {
+    background-color: var(--neon-cyan);
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.neon-button-magenta {
+    background-color: transparent;
+    border: 2px solid var(--neon-magenta);
+    color: var(--neon-magenta);
+}
+
+.neon-button-magenta:hover {
+    background-color: var(--neon-magenta);
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px var(--neon-magenta);
+}
+
+/* --- TARJETAS DE VUELO --- */
+.flight-card {
+    background-color: #101024;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.flight-card:hover {
+    border-color: var(--neon-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.1);
+}
+
+.flight-summary-card {
+    background-color: #101024;
+    border-left: 4px solid var(--neon-magenta);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+/* --- CLASES DE UTILIDAD --- */
+.hidden {
+    display: none;
+}
+
+/* --- TEMA PERSONALIZADO PARA FLATPICKR --- */
+.flatpickr-calendar {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 8px;
+    box-shadow: 0 0 15px var(--neon-cyan);
+    width: auto;
+}
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 5px var(--neon-cyan);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.flatpickr-weekdays, .flatpickr-weekday {
+    color: var(--neon-magenta);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.flatpickr-day {
+    color: #fff;
+    border: 1px solid transparent;
+}
+
+.flatpickr-day:hover, .flatpickr-day:focus {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: var(--neon-cyan);
+    outline: none;
+}
+
+.flatpickr-day.today {
+    border-color: var(--neon-magenta);
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
+    background: var(--neon-cyan);
+    color: var(--dark-bg);
+    border-color: var(--neon-cyan);
+    text-shadow: none;
+}
+
+.flatpickr-day.disabled {
+    color: #444;
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    fill: var(--neon-cyan);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+    fill: var(--neon-magenta);
+}

@@ -1,0 +1,18 @@
+{
+  "name": "proyecto-x-wdio",
+  "version": "1.0.0",
+  "description": "Pruebas automatizadas para AeroNeon con WebdriverIO",
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:chrome": "cross-env BROWSER=chrome jest --runInBand",
+    "test:firefox": "cross-env BROWSER=firefox jest --runInBand"
+  },
+  "devDependencies": {
+    "chromedriver": "^140.0.0",
+    "cross-env": "^7.0.3",
+    "geckodriver": "latest",
+    "jest": "^29.7.0",
+    "jest-html-reporters": "^3.1.7",
+    "selenium-webdriver": "4.11.1"
+  }
+}

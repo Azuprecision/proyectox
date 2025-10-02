@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroNeon - Vuelos al Futuro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="vuelos-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+    <header class="p-4 text-center">
+        <h1 class="text-5xl font-bold neon-text-cyan tracking-widest font-orbitron">AeroNeon</h1>
+        <p class="neon-text-magenta font-rajdhani">Tu viaje por México comienza aquí.</p>
+    </header>
+
+    <main class="container mx-auto p-4">
+
+        <!-- 1. SECCIÓN DE BÚSQUEDA -->
+        <section id="search-section" class="main-section">
+            <div class="section-container">
+                <h2 class="section-title">Busca tu próximo destino</h2>
+                <div class="trip-type-selector mb-4">
+                    <input type="radio" id="one-way" name="trip-type" value="one-way" checked>
+                    <label for="one-way">Solo Ida</label>
+                    <input type="radio" id="round-trip" name="trip-type" value="round-trip">
+                    <label for="round-trip">Ida y Vuelta</label>
+                </div>
+                <form id="search-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
+                    <div class="form-group">
+                        <label for="origin" class="form-label">Origen</label>
+                        <select id="origin" class="form-input">
+                            <option>Ciudad de México (MEX)</option>
+                            <option>Cancún (CUN)</option>
+                            <option>Guadalajara (GDL)</option>
+                            <option>Monterrey (MTY)</option>
+                            <option>Tijuana (TIJ)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination" class="form-label">Destino</label>
+                        <select id="destination" class="form-input">
+                            <option>Cancún (CUN)</option>
+                            <option>Ciudad de México (MEX)</option>
+                            <option>Guadalajara (GDL)</option>
+                            <option>Monterrey (MTY)</option>
+                            <option>Los Cabos (SJD)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="departure-date" class="form-label">Fecha de Ida</label>
+                        <input type="text" id="departure-date" class="form-input" placeholder="Selecciona una fecha" required>
+                    </div>
+                    <div id="return-date-group" class="form-group hidden">
+                        <label for="return-date" class="form-label">Fecha de Regreso</label>
+                        <input type="text" id="return-date" class="form-input" placeholder="Selecciona una fecha">
+                    </div>
+                    <div class="form-group">
+                        <label for="passengers" class="form-label">Pasajeros</label>
+                        <input type="number" id="passengers" class="form-input" value="1" min="1" max="5">
+                    </div>
+                    <div class="form-group lg:col-span-1">
+                        <button type="submit" class="w-full neon-button-cyan">Buscar Vuelos</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. SECCIÓN DE RESULTADOS -->
+        <section id="results-section" class="main-section hidden">
+            <div class="section-container">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="section-title">Vuelos Disponibles</h2>
+                    <button id="new-search-btn" class="neon-button-magenta">Nueva Búsqueda</button>
+                </div>
+                <div id="flight-list" class="space-y-4">
+                    <!-- Los vuelos se insertarán aquí con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SECCIÓN DE PASAJEROS -->
+        <section id="passenger-section" class="main-section hidden">
+            <div class="section-container">
+                <h2 class="section-title">Información de Pasajeros</h2>
+                <div id="selected-flight-summary-passenger" class="flight-summary-card mb-6"></div>
+                <form id="passenger-form">
+                    <div id="passenger-inputs" class="space-y-4">
+                        <!-- Inputs para pasajeros se generarán aquí -->
+                    </div>
+                    <div class="mt-6 flex justify-end">
+                        <button type="submit" class="neon-button-cyan">Continuar al Pago</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 4. SECCIÓN DE PAGO -->
+        <section id="payment-section" class="main-section hidden">
+            <div class="section-container">
+                <h2 class="section-title">Método de Pago</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold neon-text-cyan mb-4">Resumen de Compra</h3>
+                        <div id="selected-flight-summary-payment" class="flight-summary-card"></div>
+                        <div id="total-price" class="mt-4 text-2xl font-bold text-right neon-text-magenta"></div>
+                    </div>
+                    <form id="payment-form" class="space-y-4">
+                        <div class="form-group">
+                            <label for="card-name" class="form-label">Nombre en la tarjeta</label>
+                            <input type="text" id="card-name" class="form-input" placeholder="Juan Pérez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number" class="form-label">Número de tarjeta</label>
+                            <input type="text" id="card-number" class="form-input" placeholder="******************" required pattern="\d{16}" title="Debe contener 16 dígitos numéricos." maxlength="16">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label for="card-expiry" class="form-label">Expiración</label>
+                                <input type="text" id="card-expiry" class="form-input" placeholder="MM/AA" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Formato MM/AA.">
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvc" class="form-label">CVC</label>
+                                <input type="text" id="card-cvc" class="form-input" placeholder="123" required pattern="\d{3}" title="Debe contener 3 dígitos." maxlength="3">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full neon-button-cyan mt-4">Pagar Ahora</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SECCIÓN DE CONFIRMACIÓN -->
+        <section id="confirmation-section" class="main-section hidden">
+            <div class="section-container text-center">
+                <h2 class="section-title text-4xl text-green-400">¡Compra Exitosa!</h2>
+                <p class="text-lg mt-2 mb-6">Tu reservación ha sido confirmada.</p>
+                <div id="confirmation-details" class="p-6 bg-gray-900/50 rounded-lg border border-cyan-500 text-left">
+                    <!-- Detalles de la confirmación aquí -->
+                </div>
+                <button id="book-another-flight-btn" class="neon-button-magenta mt-8">Reservar Otro Vuelo</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-4 mt-8 text-sm text-gray-500">
+        <p>&copy; 2025 AeroNeon. Todos los derechos reservados. Demo creada por Gemini.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="vuelos-logic.js"></script>
+</body>
+</html>

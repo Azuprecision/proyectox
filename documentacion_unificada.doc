@@ -1,0 +1,111 @@
+# Registro de Interacciones con Cell CLI para el Proyecto AeroNeon
+
+Este documento resume los pasos clave realizados con Cell CLI para crear, validar y probar una página de e-commerce de vuelos ficticia llamada "AeroNeon".
+
+---
+
+## 1. Creación Inicial del E-commerce
+
+*   **Objetivo**: Generar una página demo de e-commerce de vuelos con HTML, CSS y JS, usando un tema neón oscuro.
+*   **Acción de Cell CLI**: Se crearon tres archivos base para la estructura, el estilo y la lógica (`vuelos-index.html`, `vuelos-style.css`, `vuelos-logic.js`).
+*   **Resultado**: Se generó una página web funcional con un flujo de compra completo, desde la búsqueda hasta la confirmación.
+
+---
+
+## 2. Mejora de la Experiencia de Usuario y Funcionalidades
+
+*   **Objetivo**: Añadir un calendario interactivo, la opción de "Ida y Vuelta" y validar todos los campos del formulario.
+*   **Acción de Cell CLI**: Se realizaron múltiples modificaciones en los archivos HTML, CSS y JS para integrar la librería Flatpickr.js, añadir la nueva lógica de búsqueda y aplicar validaciones de formato y de lógica (ej. fecha de regreso posterior a la de ida, tarjeta no vencida).
+*   **Resultado**: La aplicación se volvió más robusta, con un flujo de búsqueda más completo y validaciones que previenen datos incorrectos.
+
+---
+
+## 3. Pruebas Automatizadas del Flujo de Compra (Selenium)
+
+*   **Objetivo**: Crear una prueba automatizada para verificar el flujo de compra de principio a fin.
+*   **Acción de Cell CLI**: Se inicializó un entorno de Node.js, se instalaron `jest` y `selenium-webdriver`, y se creó el script `compra_vuelo.test.js`. Se requirió un proceso de depuración para estabilizar la prueba, resultando en un test E2E rápido y fiable.
+*   **Resultado**: Se obtuvo una prueba E2E estable que valida todo el flujo de compra.
+
+---
+
+## 4. Pruebas de UI (Responsividad y Visual)
+
+*   **Objetivo**: Asegurar que el diseño se vea bien en diferentes navegadores/tamaños y no sufra cambios inesperados.
+*   **Acción de Cell CLI**: Se crearon dos scripts de prueba: `responsividad.test.js` y `visual.test.js`. Se instaló y configuró `jest-image-snapshot`. Se depuraron problemas con los drivers de Selenium y la configuración de Jest.
+*   **Resultado**: Se implementaron pruebas que generan capturas de pantalla en Chrome y Firefox y un sistema de regresión visual para detectar cambios en la UI.
+
+---
+
+## 5. Reportes de Prueba Avanzados
+
+*   **Objetivo**: Generar un reporte HTML que incluya una captura de pantalla en el momento exacto en que ocurre un error.
+*   **Acción de Cell CLI**: Se instaló y configuró `jest-html-reporters`. Se modificaron los scripts de prueba para envolver la lógica en bloques `try...catch` que, en caso de error, toman una captura y la adjuntan al reporte.
+*   **Resultado**: Se configuró un sistema de reportes profesional que facilita la depuración visual de errores.
+
+---
+
+## 6. Organización y Documentación del Proyecto
+
+*   **Objetivo**: Organizar todos los artefactos del proyecto y generar una matriz de pruebas formal.
+*   **Acción de Cell CLI**:
+    1.  Se creó una carpeta `proyecto x`.
+    2.  Se movieron todos los archivos generados (código fuente, pruebas, reportes, capturas) a la nueva carpeta.
+    3.  Se generó una matriz de pruebas (`matriz_de_pruebas.csv`) en formato Excel, resumiendo todos los casos de prueba cubiertos.
+*   **Resultado**: El proyecto quedó centralizado y documentado en una única carpeta.
+
+---
+
+## 7. Pruebas de Validación Específicas
+
+*   **Objetivo**: Automatizar casos de prueba específicos de la matriz que no tenían un script dedicado.
+*   **Acción de Cell CLI**:
+    1.  Se creó un nuevo script de prueba: `validaciones.test.js`.
+    2.  Este script automatiza las pruebas `AERO-002`, `AERO-003` y `AERO-004`.
+    3.  **Depuración Extensiva**: Se atravesó un complejo proceso de depuración para resolver conflictos y errores persistentes en la configuración de Jest, lo que implicó reubicar archivos, reescribir la configuración y, finalmente, corregir las rutas de los archivos de prueba para que Selenium pudiera encontrarlos.
+*   **Resultado**: Se logró una ejecución exitosa de las pruebas de validación, completando la cobertura automatizada de la matriz de pruebas.
+
+---
+
+## 8. Trazabilidad de Pruebas
+
+*   **Objetivo**: Vincular los scripts de prueba con la matriz de pruebas para mejorar la trazabilidad.
+*   **Acción de Cell CLI**: Se actualizaron las descripciones en los archivos `responsividad.test.js` y `visual.test.js` para incluir los IDs de los casos de prueba correspondientes (`AERO-005` y `AERO-006`).
+*   **Resultado**: Los reportes de prueba ahora muestran explícitamente qué caso de prueba de la matriz se está ejecutando, facilitando el seguimiento.
+
+---
+
+# Documentación de Interacciones con Cell CLI - Proyecto AeroNeon
+
+
+**Objetivo:** Restaurar la funcionalidad de las capturas de pantalla (screenshots) en los reportes de prueba HTML.
+
+**Resumen de la Interacción:**
+
+Se solicitó a Cell CLI que restaurara el proyecto a un estado en el que las capturas de pantalla de las pruebas fallidas se mostraran correctamente en los reportes de ejecución generados por `jest-html-reporters`.
+
+**Proceso de Troubleshooting y Solución:**
+
+1.  **Análisis Inicial:** Se identificó que las capturas de pantalla se estaban guardando correctamente en la carpeta `/screenshots`, pero no eran visibles en el reporte HTML.
+
+2.  **Corrección de la Ruta del Reporte:** Se detectó que los reportes se estaban generando en la carpeta `/public` en lugar de `/html-report`. Se corrigió la opción `publicPath` en el archivo `jest.config.js` para apuntar al directorio correcto.
+
+3.  **Investigación del Adjunto de Imágenes:** Se realizaron varios intentos para corregir la visualización de la imagen:
+    *   Se probó cambiando la ruta del adjunto de absoluta a relativa en la función `addAttach`. Esto fue incorrecto.
+    *   Se restauró la ruta absoluta, que es la requerida por la librería para procesar el archivo.
+    *   Se añadió la opción `pageTitle` a la configuración, lo cual no tuvo efecto en el problema principal.
+
+4.  **Identificación de la Causa Raíz:** Tras varios intentos fallidos, se determinó que el problema se debía a dos puntos clave en la configuración y uso de la librería `jest-html-reporters`:
+    *   **Configuración Faltante:** El archivo `jest.config.js` carecía de la opción `"includeAttachments": true`, la cual es indispensable para que el reportero procese y embeba los archivos adjuntos.
+    *   **Llamada a `addAttach`:** La llamada a la función `addAttach` en los archivos de prueba (`.test.js`) incluía un objeto `context` que, en esta versión específica de la librería, generaba un conflicto.
+
+5.  **Solución Final Implementada:**
+    *   Se modificó el archivo `jest.config.js` para añadir la línea `"includeAttachments": true`.
+    *   Se simplificó la llamada a `addAttach` en los archivos `compra_vuelo.test.js`, `responsividad.test.js` y `visual.test.js`, eliminando el objeto `context` y dejando únicamente las propiedades `attach` (con la ruta absoluta) y `description`.
+
+**Resultado:**
+
+Tras aplicar la solución final, las pruebas se ejecutaron y el reporte HTML generado en la carpeta `/html-report` mostró correctamente las capturas de pantalla de las pruebas fallidas. La configuración funcional fue guardada en la memoria de Cell CLI para futuras referencias.
+
+
+
+
