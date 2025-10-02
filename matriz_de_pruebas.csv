@@ -1,4 +1,4 @@
-"ID del Caso de Prueba","Tipo de Prueba","Descripción del Caso de Prueba","Pasos a Reproducir","Datos de Prueba","Resultado Esperado","Resultado Obtenido (Automatizado)","Estado"
+"ID del Caso de Prueba","Tipo de Prueba","Descripción del Caso de Prueba","Pasos a Reproducir","Datos de Prueba","Resultado Esperado","Estado Automatización"
 "AERO-001","Funcional (E2E)","Verificar el flujo de compra completo para un vuelo de ida y vuelta.","1. Abrir la página.
 2. Seleccionar 'Ida y Vuelta'.
 3. Ingresar origen, destino y fechas.
@@ -8,23 +8,21 @@
 7. Confirmar la compra.","Origen: Ciudad de México
 Destino: Cancún
 Pasajero: Juan Prueba
-Tarjeta: Válida (18 dígitos, fecha futura)","El usuario debe llegar a la pantalla de '¡Compra Exitosa!' y ver un código de reservación.","La prueba automatizada con Selenium completó el flujo y verificó el texto '¡Compra Exitosa!'.","Pasa"
+Tarjeta: Válida (16 dígitos, fecha futura)","El usuario debe llegar a la pantalla de '¡Compra Exitosa!' y ver un código de reservación.","Completo"
 "AERO-002","Funcional (Validación)","Verificar que el sistema impida la búsqueda si el origen y el destino son iguales.","1. Abrir la página.
 2. Seleccionar el mismo valor para 'Origen' y 'Destino'.
 3. Hacer clic en 'Buscar Vuelos'.","Origen: Cancún (CUN)
-Destino: Cancún (CUN)","Debe aparecer una alerta indicando que el origen y el destino no pueden ser iguales. La búsqueda no debe proceder.","La validación en 'vuelos-logic.js' previene la búsqueda y muestra una alerta.","Pasa"
+Destino: Cancún (CUN)","Debe aparecer una alerta indicando que el origen y el destino no pueden ser iguales. La búsqueda no debe proceder.","Parcial (Lógica cubierta)"
 "AERO-003","Funcional (Validación)","Verificar que el sistema impida el pago con una tarjeta de crédito vencida.","1. Llegar a la sección de pago.
 2. Ingresar una fecha de expiración anterior al mes y año actual.
-3. Hacer clic en 'Pagar Ahora'.","Fecha de Expiración: 01/23 (o cualquier fecha pasada)","Debe aparecer una alerta indicando que la tarjeta no es válida. El pago no debe proceder.","La validación en 'vuelos-logic.js' previene el envío del formulario y muestra una alerta.","Pasa"
-"AERO-004","Funcional (Validación)","Verificar que el campo de número de tarjeta solo acepte 18 dígitos.","1. Llegar a la sección de pago.
-2. Intentar ingresar menos de 18 dígitos en el número de tarjeta.
-3. Hacer clic en 'Pagar Ahora'.","Número de Tarjeta: 1234567890","El formulario no debe enviarse debido a la validación de 'pattern' del campo. El navegador debe mostrar un error de formato.","El atributo 'pattern="
-		d{18}"
-	' en el HTML impide el envío del formulario.","Pasa"
+3. Hacer clic en 'Pagar Ahora'.","Fecha de Expiración: 01/23 (o cualquier fecha pasada)","Debe aparecer una alerta indicando que la tarjeta no es válida. El pago no debe proceder.","Parcial (Lógica cubierta)"
+"AERO-004","Funcional (Validación)","Verificar que el campo de número de tarjeta solo acepte 16 dígitos.","1. Llegar a la sección de pago.
+2. Intentar ingresar menos de 16 dígitos en el número de tarjeta.
+3. Hacer clic en 'Pagar Ahora'.","Número de Tarjeta: 1234567890","El formulario no debe enviarse debido a la validación de 'pattern' del campo. El navegador debe mostrar un error de formato.","Parcial (Validación HTML)"
 "AERO-005","UI (Responsividad)","Verificar que el diseño de la página se adapte correctamente a diferentes tamaños de pantalla y navegadores.","1. Abrir la página en Chrome y Firefox.
 2. Redimensionar la ventana a tamaños de móvil, tablet y escritorio.
 3. Verificar que los elementos principales sean visibles y no se superpongan.","Navegadores: Chrome, Firefox
-Viewports: 375x812, 768x1024, 1920x1080","El diseño debe ser fluido y todos los elementos funcionales deben ser accesibles en todos los tamaños.","La prueba automatizada con Selenium ('responsividad.test.js') pasó, y las capturas de pantalla muestran un diseño correcto.","Pasa"
+Viewports: 375x812, 768x1024, 1920x1080","El diseño debe ser fluido y todos los elementos funcionales deben ser accesibles en todos los tamaños.","Completo"
 "AERO-006","UI (Visual)","Verificar que no haya regresiones visuales inesperadas en la interfaz de usuario.","1. Ejecutar la prueba visual para generar snapshots de referencia.
 2. Volver a ejecutar la prueba para comparar la UI actual con la referencia.","Navegador: Chrome (headless)
-Viewports: Móvil y Escritorio","La segunda ejecución de la prueba debe pasar, indicando que no hay diferencias visuales con respecto a las imágenes de referencia guardadas.","La prueba automatizada con 'jest-image-snapshot' ('visual.test.js') pasó, confirmando que no hay regresiones visuales.","Pasa"
+Viewports: Móvil y Escritorio","La segunda ejecución de la prueba debe pasar, indicando que no hay diferencias visuales con respecto a las imágenes de referencia guardadas.","Completo"
