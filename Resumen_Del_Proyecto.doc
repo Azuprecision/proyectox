@@ -45,3 +45,24 @@ La suite de pruebas está diseñada para garantizar la calidad y estabilidad de 
 
 *   **`visual.test.js` (Prueba de Regresión Visual):**
     *   **Propósito:** Tomar capturas de pantalla de la aplicación y compararlas con versiones de referencia. Su objetivo es detectar cualquier cambio visual no deseado (ej. un botón desalineado, un color incorrecto), asegurando la consistencia de la UI.
+
+## 4. Entorno de Desarrollo y Ejecución
+
+Para trabajar con este proyecto, es fundamental entender su base en Node.js.
+
+*   **Conceptos Clave del Proyecto Node.js:**
+    *   **`package.json`:** Es el corazón del proyecto. Define sus propiedades, dependencias (librerías como Selenium y Jest) y los scripts de ejecución.
+    *   **`node_modules/`:** Carpeta (generalmente no visible en el IDE) donde se descargan e instalan todas las dependencias listadas en `package.json`.
+    *   **Primer Paso Esencial:** Antes de ejecutar cualquier cosa, siempre se debe ejecutar el comando `npm install` en la terminal. Este comando lee el `package.json` y descarga todo lo necesario para que las pruebas funcionen.
+
+*   **Cómo Ejecutar las Pruebas:**
+    Todas las pruebas se lanzan desde la terminal, en la raíz del proyecto, utilizando los siguientes comandos:
+    *   `npm run test:chrome`: Ejecuta la suite completa de pruebas en Google Chrome.
+    *   `npm run test:firefox`: Ejecuta la suite completa de pruebas en Mozilla Firefox.
+    *   `npm run test:edge`: Ejecuta la suite completa de pruebas en Microsoft Edge. La primera vez, este comando detectará la versión de Edge instalada y descargará el driver correspondiente.
+
+*   **Cómo Importar en un IDE (Visual Studio Code):**
+    1.  Abre Visual Studio Code.
+    2.  Ve a "File" > "Open Folder..." (o "Archivo" > "Abrir Carpeta...").
+    3.  Selecciona la carpeta raíz del proyecto (`C:\Users\MarcelinocruzRosa\git\proyectox`).
+    4.  ¡Listo! El IDE reconocerá automáticamente el `package.json` y podrás abrir una terminal integrada ("Terminal" > "New Terminal") para ejecutar los comandos `npm` directamente.
