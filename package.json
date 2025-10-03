@@ -7,7 +7,7 @@
     "test:chrome": "cross-env BROWSER=chrome jest --runInBand",
     "test:firefox": "rimraf .\\node_modules\\.bin\\geckodriver.cmd && cross-env BROWSER=firefox jest --runInBand",
     "test:edge": "node prepare-edge.js && cross-env BROWSER=edge jest --runInBand",
-    "test:all": "npm run test:chrome ; npm run test:firefox ; npm run test:edge"
+    "test:all": "npm run test:chrome & npm run test:firefox & npm run test:edge"
   },
   "devDependencies": {
     "chromedriver": "^140.0.0",
