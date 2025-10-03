@@ -1,16 +1,17 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const os = require('os'); // Importar el módulo OS
 const extract = require('extract-zip');
 const { execSync } = require('child_process');
 
-const driverDir = path.join(__dirname, '.drivers');
+// Usar la carpeta temporal del sistema operativo
+const driverDir = path.join(os.tmpdir(), 'msedgedriver_temp');
 const driverPath = path.join(driverDir, 'msedgedriver.exe');
 
 function getEdgeVersion() {
     try {
-        // Comando de PowerShell para obtener la versión del navegador Edge
-        const command = "powershell -command \"(Get-Item 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe').VersionInfo.FileVersion\"";
+        const command = `powershell -command "& {(Get-Item 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe').VersionInfo.FileVersion}"`;
         const version = execSync(command, { encoding: 'utf8' }).trim();
         if (!version) {
             throw new Error('No se pudo determinar la versión de Edge.');
@@ -25,7 +26,7 @@ function getEdgeVersion() {
 
 async function prepareEdgeDriver() {
     if (fs.existsSync(driverPath)) {
-        console.log('msedgedriver ya existe. Saltando descarga.');
+        console.log(`msedgedriver ya existe en ${driverDir}. Saltando descarga.`);
         return;
     }
 
@@ -65,7 +66,7 @@ async function prepareEdgeDriver() {
             throw new Error('msedgedriver.exe no se encontró después de la extracción.');
         }
         
-        console.log('Driver de Edge listo.');
+        console.log(`Driver de Edge listo en: ${driverPath}`);
 
     } catch (error) {
         console.error('Falló la preparación del driver de Edge:', error);

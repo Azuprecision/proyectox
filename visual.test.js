@@ -37,28 +37,7 @@ const viewports = {
 };
 
 describe('AERO-006: Tests de Regresión Visual', () => {
-    let driver;
     const browserName = process.env.BROWSER || 'chrome';
-
-    beforeAll(async () => {
-        let builder = new Builder().forBrowser(browserName);
-
-        if (browserName === 'chrome') {
-            let service = new chrome.ServiceBuilder(chromedriver.path);
-            builder.setChromeService(service).setChromeOptions(new chrome.Options().addArguments('--headless'));
-        } else if (browserName === 'firefox') {
-            let service = new firefox.ServiceBuilder(geckodriver.path);
-            builder.setFirefoxService(service).setFirefoxOptions(new firefox.Options().addArguments('--headless'));
-        }
-        
-        driver = await builder.build();
-    });
-
-    afterAll(async () => {
-        if (driver) {
-            await driver.quit();
-        }
-    });
 
     for (const device in viewports) {
         test(`La página principal debería coincidir con el snapshot en vista ${device} [${browserName}]`, async () => {
@@ -73,7 +52,8 @@ describe('AERO-006: Tests de Regresión Visual', () => {
                 
                 const screenshot = await driver.takeScreenshot();
                 expect(screenshot).toMatchImageSnapshot({
-                    customSnapshotIdentifier: `${browserName}-${device}-view`,
+                    customSnapshotsDir: `./__image_snapshots__/${browserName}`,
+                    customSnapshotIdentifier: `${device}-view`,
                     failureThreshold: 0.1,
                     failureThresholdType: 'percent'
                 });

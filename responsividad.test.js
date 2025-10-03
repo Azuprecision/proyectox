@@ -35,26 +35,7 @@ const viewports = {
 };
 
 describe('AERO-005: Tests de Responsividad Cross-Browser', () => {
-    let driver;
     const browserName = process.env.BROWSER || 'chrome';
-
-    beforeAll(async () => {
-        let builder = new Builder().forBrowser(browserName);
-        if (browserName === 'chrome') {
-            let service = new chrome.ServiceBuilder(chromedriver.path);
-            builder.setChromeService(service);
-        } else if (browserName === 'firefox') {
-            let service = new firefox.ServiceBuilder(geckodriver.path);
-            builder.setFirefoxService(service);
-        }
-        driver = await builder.build();
-    });
-
-    afterAll(async () => {
-        if (driver) {
-            await driver.quit();
-        }
-    });
 
     for (const device in viewports) {
         test(`Debería mostrarse correctamente en vista ${device} [${browserName}]`, async () => {

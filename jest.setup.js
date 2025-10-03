@@ -7,6 +7,7 @@ const geckodriver = require('geckodriver');
 const { addAttach } = require('jest-html-reporters/helper');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 jest.setTimeout(30000); 
 
@@ -31,7 +32,7 @@ beforeAll(async () => {
       .build();
 
   } else if (browserName === 'edge') {
-    const driverPath = path.join(__dirname, '.drivers', 'msedgedriver.exe');
+    const driverPath = path.join(os.tmpdir(), 'msedgedriver_temp', 'msedgedriver.exe');
     if (!fs.existsSync(driverPath)) {
       throw new Error(`El driver de Edge no se encontró en ${driverPath}. Ejecuta 'npm run test:edge' para descargarlo.`);
     }

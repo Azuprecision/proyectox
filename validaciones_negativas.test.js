@@ -31,28 +31,6 @@ async function navigateToSection(driver, sectionId) {
 
 
 describe('Casos de Prueba Negativos', () => {
-    let driver;
-
-    beforeAll(async () => {
-        const browser = process.env.BROWSER || 'chrome';
-        let builder = new Builder().forBrowser(browser);
-
-        if (browser === 'chrome') {
-            let service = new chrome.ServiceBuilder(chromedriver.path);
-            builder.setChromeService(service);
-        } else if (browser === 'firefox') {
-            let service = new firefox.ServiceBuilder(geckodriver.path);
-            builder.setFirefoxService(service);
-        }
-        driver = await builder.build();
-    });
-
-    afterAll(async () => {
-        if (driver) {
-            await driver.quit();
-        }
-    });
-
     // --- AERO-007: Fallo por nombre de pasajero vacío ---
     it('AERO-007: No debería continuar si el nombre del pasajero está vacío', async () => {
         await navigateToSection(driver, 'passenger-section');
