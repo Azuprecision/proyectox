@@ -2,12 +2,26 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
 const extract = require('extract-zip');
+const { execSync } = require('child_process');
 
 const driverDir = path.join(__dirname, '.drivers');
 const driverPath = path.join(driverDir, 'msedgedriver.exe');
-const version = '129.0.2151.46'; // Actualizar según sea necesario
-const url = `https://msedgedriver.azureedge.net/${version}/edgedriver_win64.zip`;
-const zipPath = path.join(driverDir, 'edgedriver.zip');
+
+function getEdgeVersion() {
+    try {
+        // Comando de PowerShell para obtener la versión del navegador Edge
+        const command = "powershell -command \"(Get-Item 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe').VersionInfo.FileVersion\"";
+        const version = execSync(command, { encoding: 'utf8' }).trim();
+        if (!version) {
+            throw new Error('No se pudo determinar la versión de Edge.');
+        }
+        console.log(`Versión de Microsoft Edge detectada: ${version}`);
+        return version;
+    } catch (error) {
+        console.error('Error al detectar la versión de Edge. Asegúrate de que esté instalado en la ruta estándar.', error);
+        return null;
+    }
+}
 
 async function prepareEdgeDriver() {
     if (fs.existsSync(driverPath)) {
@@ -15,14 +29,22 @@ async function prepareEdgeDriver() {
         return;
     }
 
-    console.log(`Descargando msedgedriver desde: ${url}`);
+    const version = getEdgeVersion();
+    if (!version) {
+        process.exit(1);
+    }
+
+    const downloadUrl = `https://msedgedriver.microsoft.com/${version}/edgedriver_win64.zip`;
+    const zipPath = path.join(driverDir, 'edgedriver.zip');
+
+    console.log(`Descargando msedgedriver v${version} desde: ${downloadUrl}`);
     
     if (!fs.existsSync(driverDir)) {
         fs.mkdirSync(driverDir, { recursive: true });
     }
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(downloadUrl);
         if (!response.ok) {
             throw new Error(`Error en la descarga: ${response.statusText}`);
         }
@@ -47,7 +69,7 @@ async function prepareEdgeDriver() {
 
     } catch (error) {
         console.error('Falló la preparación del driver de Edge:', error);
-        process.exit(1); // Termina el proceso si el driver no se puede obtener
+        process.exit(1);
     }
 }
 

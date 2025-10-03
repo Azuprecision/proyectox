@@ -29,28 +29,6 @@ async function takeScreenshotAndAttach(driver, testName) {
 }
 
 describe('Flujo de Compra de Vuelos en AeroNeon', () => {
-    let driver;
-
-    beforeAll(async () => {
-        const browser = process.env.BROWSER || 'chrome';
-        let builder = new Builder().forBrowser(browser);
-
-        if (browser === 'chrome') {
-            let service = new chrome.ServiceBuilder(chromedriver.path);
-            builder.setChromeService(service);
-        } else if (browser === 'firefox') {
-            let service = new firefox.ServiceBuilder(geckodriver.path);
-            builder.setFirefoxService(service);
-        }
-        driver = await builder.build();
-    });
-
-    afterAll(async () => {
-        if (driver) {
-            await driver.quit();
-        }
-    });
-
     it('Debería completar el flujo de compra de un vuelo', async () => {
         try {
             const pageUrl = `file://${path.resolve(__dirname, 'vuelos-index.html')}`;
