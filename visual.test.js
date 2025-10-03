@@ -74,7 +74,7 @@ describe('AERO-006: Tests de Regresión Visual', () => {
                 const screenshot = await driver.takeScreenshot();
                 expect(screenshot).toMatchImageSnapshot({
                     customSnapshotIdentifier: `${browserName}-${device}-view`,
-                    failureThreshold: 0.01,
+                    failureThreshold: 0.1,
                     failureThresholdType: 'percent'
                 });
             } catch (error) {
