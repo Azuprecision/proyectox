@@ -5,14 +5,18 @@
   "scripts": {
     "test": "jest --runInBand",
     "test:chrome": "cross-env BROWSER=chrome jest --runInBand",
-    "test:firefox": "cross-env BROWSER=firefox jest --runInBand"
+    "test:firefox": "rimraf .\\node_modules\\.bin\\geckodriver.cmd && cross-env BROWSER=firefox jest --runInBand",
+    "test:edge": "node prepare-edge.js && cross-env BROWSER=edge jest --runInBand"
   },
   "devDependencies": {
     "chromedriver": "^140.0.0",
     "cross-env": "^7.0.3",
+    "extract-zip": "^2.0.1",
     "geckodriver": "latest",
     "jest": "^29.7.0",
     "jest-html-reporters": "^3.1.7",
+    "node-fetch": "^2.7.0",
+    "rimraf": "^6.0.1",
     "selenium-webdriver": "4.11.1"
   }
 }
